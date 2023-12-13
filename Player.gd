@@ -2,6 +2,12 @@ extends Area2D
 
 @export var Speed = 400.0
 
+@onready var bg_music = $"../BGmusic"
+@onready var enemy_hit = $"../EnemyHit"
+
+func _ready():
+	bg_music.play()
+
 func _process(delta):
 	var velocity = Vector2.ZERO
 	if Input.is_action_pressed("move_right"):
@@ -17,5 +23,7 @@ func _process(delta):
 		velocity = velocity.normalized() * Speed
 	position += velocity * delta
 
-func _on_body_entered():
+func _on_body_entered(body):
 	hide()
+	enemy_hit.play()
+	bg_music.stop()
